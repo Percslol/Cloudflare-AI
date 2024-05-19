@@ -1,6 +1,3 @@
-//DO NOT TOUCH UNLESS YOU KNOW WHAT YOU'RE DOING!!
-import { Ai } from './vendor/@cloudflare/ai.js';
-
 // Current version of your API
 const version = "1.0.3";
 
@@ -93,7 +90,6 @@ export default {
     const url = new URL(request.url);
     const query = decodeURIComponent(url.searchParams.get('q'));
     const id = url.pathname.substring(1);
-    const ai = new Ai(env.AI);
     // CORS headers & JSON, modify if you know what you're doing.
     const jsonheaders = {
       "content-type": "application/json;charset=UTF-8",
@@ -238,7 +234,7 @@ export default {
       }
 
       // Send data to AI and return response
-      let response = await ai.run(ai_model, chat);
+      let response = await env.AI.run(ai_model, chat);
       chat.messages.push({ role: 'system', content: response });
     }
 
